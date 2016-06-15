@@ -1,0 +1,27 @@
+menu:
+    Blog: /
+    GitHub: https://github.com/binyanbin
+    Index: /2015/12/20/self-introduce/
+    Rss: /atom.xml
+
+favicon: /favicon.png
+logo: /favicon.png
+
+# Comment
+# e.g disqus: seansun
+disqus: 
+duoshuo: binyanbin
+
+# Analytics
+# google-analytics:
+ga: 
+# baidu-analytics:
+ba: //hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e
+
+# Copyright Infomation
+startyear: 2016
+
+# Font CDN
+#true : use google fonts api, not stable for chinese visitor sometimes, caused by force majeure factor
+#false: use useso fonts api instead of google's, great response speed for chinese visitor
+googlefonts: true

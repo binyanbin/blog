@@ -1,0 +1,44 @@
+mixin postInfo(item)
+    .post-meta
+        .post-time
+            != full_date(item.date, 'll')
+
+//- Index Page
+mixin posts()
+    ul.home.post-list
+        - page.posts.each(function (item) {
+            li.post-list-item
+                article.post-block
+                    h2.post-title
+                        a.post-title-link(href= url_for(item.path))
+                            != item.title
+                    +postInfo( item )
+                    .post-content
+                        != item.excerpt
+                    a.read-more(href=item.path)!= __('more')
+        - })
+
+//- Post Page
+mixin post(item)
+    .post
+        article.post-block
+            h1.post-title
+                != item.title
+            +postInfo(item)
+            .post-content
+                != item.content
+                
+    .ds-share.flat(data-thread-key=item.path,data-title=item.title,data-url='http://binyanbin.github.io'+url_for(item.path))
+        .ds-share-inline
+            .ds-share-icons-16
+                li(data-toggle='ds-share-icons-more')
+                    a.ds-more(href='javascript:void(0)')分享到:
+                li
+                    a.ds-weibo(href='javascript:void(0);',data-service='weibo') 微博
+                li
+                    a.ds-qzone(href='javascript:void(0);',data-service='qzone') QQ空间
+                li
+                    a.ds-qqt(href='javascript:void(0);',data-service='qqt') QQ微博
+                li
+                    a.ds-wechat(href='javascript:void(0);',data-service='wechat') 微信
+                .ds-share-icons-more
