@@ -21,6 +21,7 @@ desc: Javascript  闭包
 
 		function infun2()
 	   ｛
+	   			   
 		｝
     }
 

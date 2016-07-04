@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> redis学习8  Sentinel集群控制 · 码工严彬 coding不仅仅是工作</title><meta name="description" content="redis  Sentinel 集群"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="https://github.com/binyanbin" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/2015/12/20/self-introduce/" target="_self" class="nav-list-link">INDEX</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">redis学习8  Sentinel集群控制</h1><div class="post-meta"><div class="post-time">2016年3月10日</div></div><div class="post-content"><p>Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，当用Redis做Master-slave的高可用方案时，假如master宕机了，Redis本身(包括它的很多客户端)都没有实现自动进行主备切换，而Redis-sentinel本身也是一个独立运行的进程，它能监控多个master-slave集群，发现master宕机后能进行自懂切换。<br><a id="more"></a></p>
+<h2 id="Sentinel任务"><a href="#Sentinel任务" class="headerlink" title="Sentinel任务"></a>Sentinel任务</h2><ul>
+<li>监控:Sentinel 会不断地检查你的主服务器和从服务器是否运作正常。</li>
+<li>提醒:当被监控的某个Redis服务器出现问题时,Sentinel 可以通过API向管理员或者其他应用程序发送通知。</li>
+<li>自动故障迁移:当一个主服务器不能正常工作时,Sentinel 会开始一次自动故障迁移操作， 它会将失效主服务器的其中一个从服务器升级为新的主服务器, 并让失效主服务器的其他从服务器改为复制新的主服务器;当客户端试图连接失效的主服务器时,集群也会向客户端返回新主服务器的地址,使得集群可以使用新主服务器代替失效服务器。</li>
+</ul>
+<h2 id="配置Sentinel"><a href="#配置Sentinel" class="headerlink" title="配置Sentinel"></a>配置Sentinel</h2><p>下面是一个Sentinel的标准配置<br>port 26370<br>sentinel monitor master 127.0.0.1 6381 1<br>sentinel auth-pass master yanbin<br>sentinel down-after-milliseconds master 60000<br>sentinel parallel-syncs master 5<br>第一行配置指示Sentinel去监视一个名为master的主服务器,将这个主服务器判断为失效至少需要1个Sentinel同意。只要同意Sentinel的数量不达标,自动故障迁移就不会执行。<br>down-after-milliseconds 指定了Sentinel认为服务器已经断线所需的毫秒数。<br>parallel-syncs 执行故障转移时,最多可以有多少个从服务器同时对新的主服务器进行同步,数字越小,完成故障转移所需的时间就越长。<br>auth-pass 监视主服务器的密码。</p>
+<h2 id="运行Sentinel"><a href="#运行Sentinel" class="headerlink" title="运行Sentinel"></a>运行Sentinel</h2><p>Sentinel配置在我这个windows 2.8这个版本中是没有的，我自建了一个sentinel.conf配置文件。然后使用命令行启动Sentinel：<br>redis-server  sentinel.conf –sentinel</p>
+<h2 id="故障演示"><a href="#故障演示" class="headerlink" title="故障演示"></a>故障演示</h2><p>集群配置最少需要启动三个服务，我启动了4个服务分别是<br>127.0.0.1:26370 （redis sentinel 集群监控）<br>127.0.0.1:6379  （redis 主）<br>127.0.0.1:6380  （redis 从）<br>127.0.0.1:6381  （redis 从）<br>查看网络状态</p>
+<pre><code class="bash">$ redis-cli -h 127.0.0.1 -p 26380 info Sentinel
+Sentinel
+sentinel_masters:1
+sentinel_tilt:0
+sentinel_running_scripts:0
+sentinel_scripts_queue_length:0
+master0:name=master,status=ok,address=127.0.0.1:6379,slaves=2,sentinels=1
+</code></pre>
+<p>接着我关闭一个服务</p>
+<pre><code class="bash">redis-cli -h 127.0.0.1 -p 6379 shutdow
+</code></pre>
+<p>过了一会再次查看网络</p>
+<pre><code class="bash">$ redis-cli -h 127.0.0.1 -p 26380 info Sentinel
+<span class="comment">#Sentinel</span>
+sentinel_masters:1
+sentinel_tilt:0
+sentinel_running_scripts:0
+sentinel_scripts_queue_length:0
+master0:name=master,status=ok,address=127.0.0.1:6381,slaves=1,sentinels=1
+</code></pre>
+<p>6381变成主redis,可以write操作。<br>再次启动6379</p>
+<pre><code class="bash">$ redis-cli -h 127.0.0.1 -p 26380 info Sentinel
+<span class="comment">#Sentinel</span>
+sentinel_masters:1
+sentinel_tilt:0
+sentinel_running_scripts:0
+sentinel_scripts_queue_length:0
+master0:name=master,status=ok,address=127.0.0.1:6381,slaves=2,sentinels=1
+</code></pre>
+<p>6379已不是主redis，变成了从redis,不能再write操作，只能read.</p>
+</div></article></div><div data-thread-key="2016/03/10/redis-8/" data-title="redis学习8  Sentinel集群控制" data-url="http://binyanbin.github.io/2016/03/10/redis-8/" class="ds-share flat"><div class="ds-share-inline"><div class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0)" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">QQ微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li><div class="ds-share-icons-more"></div></div></div></div></section><footer><div class="paginator"><a href="/2016/03/12/jmeter-1/" class="prev">上一篇</a><a href="/2016/03/09/redis-7/" class="next">下一篇</a></div><div data-thread-key="2016/03/10/redis-8/" data-title="redis学习8  Sentinel集群控制" data-url="http://binyanbin.github.io/2016/03/10/redis-8/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"binyanbin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2016 <a href="http://binyanbin.github.io">严彬</a>, unless otherwise noted.</p></div></footer><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> jmeter 基础概念 · 码工严彬 coding不仅仅是工作</title><meta name="description" content="jmeter 概念"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="https://github.com/binyanbin" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/2015/12/20/self-introduce/" target="_self" class="nav-list-link">INDEX</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">jmeter 基础概念</h1><div class="post-meta"><div class="post-time">2016年3月12日</div></div><div class="post-content"><p>最近做性能优化工作，同时要给自己的工作给一个总结。需要自己弄性能测试及编写性能测试报告。在别人推荐下使用JMeter对项目进行性能测试。JMeter可以进行配置和执行负载测试、性能测试和压力测试的工具。了解一下几个概念:</p>
+<ul>
+<li>负载测试: 这类测试使系统或者应用程序在预先设计好的极端场景下测试运行。这类测试用来评估系统或者程序在极端条件下的行为。</li>
+<li>性能测试: 这种测试被用来检测系统的性能表现，包括特定情况下，系统的响应能力和稳定性。</li>
+<li>压力测试: 这类测试通过载入更多的外部资源，并使系统组件超越其所设定的能力范围,试图使系统挂掉.<a id="more"></a>
+JMeter 的安装非常简单,从官方网站上下载，解压之后即可使用。运行命令在%JMETER_HOME%/bin下,对于 Windows用户来说,命令是jmeter.bat。运行前请检查JMeter的文档,查看是否具备相关的运行条件:JDK的版本要求是否满足.<h2 id="Test-Plan配置"><a href="#Test-Plan配置" class="headerlink" title="Test Plan配置"></a>Test Plan配置</h2><img src="/img/jmeter-1.png" alt="基本配置"><br>进去之后，你会看到Test Plan和WorkBench。这两个块东西没有太多区别，不同的是Test Plan是测试的相关配置，workbench可以帮你创建一个代理服务器帮Test Plan录制测试脚本。<h4 id="ThreadGroup-线程组"><a href="#ThreadGroup-线程组" class="headerlink" title="ThreadGroup 线程组"></a>ThreadGroup 线程组</h4>一个线程组基本上是不同的测试计划元素的组合，它是一个测试计划的核心，它控制着基本核心参数。<br>为了创建一个测试计划，首先你不得不去创建一个线程组，配置如下参数:线程数量，过渡时期，循环次数和正常情况或者错误情况下的行为：<h4 id="Samplers-采样器"><a href="#Samplers-采样器" class="headerlink" title="Samplers 采样器"></a>Samplers 采样器</h4>采样器用于发送请求到不同类型的服务器。它们是每一个测试计划的基本要素，一切都围绕这些采样器而工作：采样器执行请求，这些请求产生一个或多个响应，后续将被分析。<h4 id="Logic-Controllers-逻辑控制器"><a href="#Logic-Controllers-逻辑控制器" class="headerlink" title="Logic Controllers 逻辑控制器"></a>Logic Controllers 逻辑控制器</h4>逻辑控制器允许你配置一个线程组内不同采样器的执行顺序。<h4 id="Listeners-监听器"><a href="#Listeners-监听器" class="headerlink" title="Listeners 监听器"></a>Listeners 监听器</h4>监听器提供不同的方式查看由采样器请求产生的结果。监听器以报表、树型结构、或简明的日志文件的形式分析结果。<h4 id="Timers-定时器"><a href="#Timers-定时器" class="headerlink" title="Timers 定时器"></a>Timers 定时器</h4>定时器来定义请求之间的等待时间。如果不指定，JMeter会一个请求完成后立即执行下一个请求，没有任何等待时间。<h4 id="Assertions-断言"><a href="#Assertions-断言" class="headerlink" title="Assertions 断言"></a>Assertions 断言</h4>断言通过验证采样器请求产生的响应，来验证测试计划的有效性。类似于单元测试断言，用来检测被测试应用程序的响应质量。<h4 id="Configuration-nodes-配置节点"><a href="#Configuration-nodes-配置节点" class="headerlink" title="Configuration nodes 配置节点"></a>Configuration nodes 配置节点</h4>配置节点可以将不同的参数传递给取样器请求。<h4 id="Pre-processors-前置处理器"><a href="#Pre-processors-前置处理器" class="headerlink" title="Pre processors 前置处理器"></a>Pre processors 前置处理器</h4>前置处理器在采样器执行前被触发的元素。<h4 id="Post-processors-后置处理器"><a href="#Post-processors-后置处理器" class="headerlink" title="Post processors 后置处理器"></a>Post processors 后置处理器</h4>后置处理器是取样器被执行后被触发执行的元素。</li>
+</ul>
+<h2 id="WorkBench"><a href="#WorkBench" class="headerlink" title="WorkBench"></a>WorkBench</h2><p><img src="/img/jmeter-2.png" alt="非测试元素"><br>WorkBench可以Add三个Non-test Elements:</p>
+<ul>
+<li>Http Mirror Server 镜像的服务器<br>其实就是一个代理服务器,它把所有接收到的请求原封不动地返回，这样就可以看到发出请求和响应的具体内容了。</li>
+<li>Http(s) Test Script Recorder 脚本录制器<br>也是一个代理服务器,它会把所有接受的请求全部记录到Test Plan配置中,你在测试中可以使用这些录制的脚本。</li>
+</ul>
+<h2 id="测试计划元素执行顺序"><a href="#测试计划元素执行顺序" class="headerlink" title="测试计划元素执行顺序"></a>测试计划元素执行顺序</h2><ul>
+<li>配置节点</li>
+<li>前置处理器</li>
+<li>定时器</li>
+<li>取样器</li>
+<li>后置处理器（只在有结果可用情况下执行）</li>
+<li>断言（只在有结果可用情况下执行）</li>
+<li>监听器（只在有结果可用情况下执行）</li>
+</ul>
+<h2 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h2><ul>
+<li>Label:定义的HTTP请求名称</li>
+<li>Samples:表示这次测试中一共发出了多少个请求</li>
+<li>Average:访问页面的平均响应时间 </li>
+<li>Min:访问页面的最小响应时间</li>
+<li>Max:访问页面的最大响应时间</li>
+<li>Error%:错误的请求的数量/请求的总数</li>
+<li>Throughpu:每秒完成的请求数</li>
+<li>KB/Sec:每秒从服务器端接收到的数据量</li>
+<li>Median:50％的用户响应时间</li>
+<li>90%Line:90％的用户响应时间</li>
+<li>95%Line:95％的用户响应时间</li>
+<li>99%Line:99％的用户响应时间<br>时间指标的单位都是毫秒。</li>
+</ul>
+<h2 id="第一个web性能测试"><a href="#第一个web性能测试" class="headerlink" title="第一个web性能测试"></a>第一个web性能测试</h2><p>我做了一个博客网站首页的性能测试，只设置ThreadGroup,Sampler,Listener三项就可以运行。</p>
+<h4 id="ThreadGroup设置"><a href="#ThreadGroup设置" class="headerlink" title="ThreadGroup设置"></a>ThreadGroup设置</h4><p>一个性能测试请求负载是基于一个线程组完成的，jmeter中每个测试计划至少需要包含一个线程组。Test Plan右键菜单可新增ThreadGroup(add-&gt;Threads-&gt;ThreadGroup);<br><img src="/img/jmeter-3.png" alt="ThreadGroup"></p>
+<ul>
+<li>Number of Threads 线程数:虚拟用户数.一个虚拟用户占用一个进程或线程。</li>
+<li>Ramp-up Period 准备时长:设置的虚拟用户数需要多长时间全部启动。</li>
+<li>Loop Count 循环次数：每个线程发送请求的次数。</li>
+</ul>
+<h4 id="Sample设置"><a href="#Sample设置" class="headerlink" title="Sample设置"></a>Sample设置</h4><p>在ThreadGroup上右键菜单可新增HttpRequest（add-&gt;Sampler-&gt;HttpRequest).Sampler是与服务器进行交互的单元.一个Sampler通常进行三部分的工作：</p>
+<ul>
+<li>向服务器发送请求</li>
+<li>记录服务器的响应数据</li>
+<li>记录相应时间信息<br><img src="/img/jmeter-4.png" alt="HttpRequest"></li>
+</ul>
+<h4 id="Listener设置"><a href="#Listener设置" class="headerlink" title="Listener设置"></a>Listener设置</h4><p>脚本的主要部分设置完成后,需要通过某种方式获得性能测试中的测试结果。ThreadGroup上右键菜单可新增Listner（add-&gt;Listener-&gt;Aggregate Report).<br><img src="/img/jmeter-5.png" alt="HttpRequest"><br>我最关心的是我的博客响应时间，数据显示客户的平均响应时间为:337毫秒,99%的用户在1985毫秒内完成，也就不超2秒。最少用户响应时间为149毫秒，最大用户响应时间为5020毫秒</p>
+</div></article></div><div data-thread-key="2016/03/12/jmeter-1/" data-title="jmeter 基础概念" data-url="http://binyanbin.github.io/2016/03/12/jmeter-1/" class="ds-share flat"><div class="ds-share-inline"><div class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0)" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">QQ微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li><div class="ds-share-icons-more"></div></div></div></div></section><footer><div class="paginator"><a href="/2016/03/21/javascript-base-4/" class="prev">上一篇</a><a href="/2016/03/10/redis-8/" class="next">下一篇</a></div><div data-thread-key="2016/03/12/jmeter-1/" data-title="jmeter 基础概念" data-url="http://binyanbin.github.io/2016/03/12/jmeter-1/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"binyanbin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2016 <a href="http://binyanbin.github.io">严彬</a>, unless otherwise noted.</p></div></footer><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

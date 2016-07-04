@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 并发情况下锁的使用 · 码工严彬 coding不仅仅是工作</title><meta name="description" content="缓存 锁"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="https://github.com/binyanbin" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/2015/12/20/self-introduce/" target="_self" class="nav-list-link">INDEX</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">并发情况下锁的使用</h1><div class="post-meta"><div class="post-time">2016年2月26日</div></div><div class="post-content"><p>在<a href="http://binyanbin.github.io/2016/02/18/interview-hishop/">电商面试题</a>中，我使用了锁来控制并发时的缓存使用。为什么要加锁，因为在并发环境下，一个线程正在修改缓存，另一个线程在读缓存时，缓存数据很可能会被破坏;另外，使用锁可以控制超卖现像。下面我介绍常用的二种锁：读写锁和互斥锁。<br><a id="more"></a></p>
+<h1 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h1><p>缓存一般使用的情况应该是:</p>
+<ul>
+<li>只能由一个线程写，但可以多个线程读。</li>
+<li>在读操作时，不能同时让其它线程写，在写操作时，不能同时读。</li>
+</ul>
+<p>实现以上两种情况的锁称读写锁，读写锁有两种模式。</p>
+<ul>
+<li>读模式:可以有多个线程同时占有。</li>
+<li>写模式:一次只有一个线程可以占有。</li>
+</ul>
+<h1 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h1><p>在我面试题的代码中所有操作使用的是互斥锁，即保证lock上的代码同一时刻只被一个线程操作。这么做可以保证在任意时刻只有单个线程访问缓存，做到线程安全，但是这种方式效率并不高。原因如下:</p>
+<ul>
+<li>降低读的并发性，降低了系统使用效率。</li>
+<li>像限时抢购、秒杀这种高并发场景，应该要支持对不同的抢购商品并发下单，提高下单效率。</li>
+</ul>
+<h1 id="限时抢购、秒杀并发场景的应用"><a href="#限时抢购、秒杀并发场景的应用" class="headerlink" title="限时抢购、秒杀并发场景的应用"></a>限时抢购、秒杀并发场景的应用</h1><p>1.应为每个商品订单缓存建一个读写锁。<br>2.在对商品下单时，应该对该商品加上写模式锁，保证该商品同一时刻只有一个用户下单，不会引起商品超卖。<br>3.获取订单缓存数据时，应为该商品加上读模式锁，保证其它线程也可以读到缓存订单数据。</p>
+</div></article></div><div data-thread-key="2016/02/26/lock/" data-title="并发情况下锁的使用" data-url="http://binyanbin.github.io/2016/02/26/lock/" class="ds-share flat"><div class="ds-share-inline"><div class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0)" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">QQ微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li><div class="ds-share-icons-more"></div></div></div></div></section><footer><div class="paginator"><a href="/2016/02/28/redis-1/" class="prev">上一篇</a><a href="/2016/02/23/8year-review/" class="next">下一篇</a></div><div data-thread-key="2016/02/26/lock/" data-title="并发情况下锁的使用" data-url="http://binyanbin.github.io/2016/02/26/lock/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"binyanbin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2016 <a href="http://binyanbin.github.io">严彬</a>, unless otherwise noted.</p></div></footer><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

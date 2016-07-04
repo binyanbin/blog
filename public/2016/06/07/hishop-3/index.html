@@ -1,0 +1,224 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Himall集群版解决方案及性能测试结果 · 码工严彬 coding不仅仅是工作</title><meta name="description" content="分布式架构 微服务"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="https://github.com/binyanbin" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/2015/12/20/self-introduce/" target="_self" class="nav-list-link">INDEX</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Himall集群版解决方案及性能测试结果</h1><div class="post-meta"><div class="post-time">2016年6月7日</div></div><div class="post-content"><h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p>集中架构设计出于系统的可扩展性、可维护性以及成本等多方面的因素考虑，逐渐被放弃，转而采用分布式的架构设计。常用分布式架构采用按模块纵向分解的方式,然后纵向分解中的某些模块仍有可能是一个复杂且庞大的业务，需要继续进行拆分。每个模块又由许多个微服务完成业务功能，微服务可独部署弹性伸缩。下图为Himall分布式集群版的整体架构设计:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-11.png" alt="图"></p>
+<h2 id="部署图"><a href="#部署图" class="headerlink" title="部署图"></a>部署图</h2><p><img src="http://binyanbin.github.io/img/hishop-12.png" alt="图"></p>
+<h2 id="标准部署方案的业务支撑能力"><a href="#标准部署方案的业务支撑能力" class="headerlink" title="标准部署方案的业务支撑能力"></a>标准部署方案的业务支撑能力</h2><table>
+<thead>
+<tr>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+<th>日均最大PV（11小时峰值测试）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3000</td>
+<td>4秒内</td>
+<td>2000</td>
+<td>约7920万</td>
+</tr>
+</tbody>
+</table>
+<h2 id="标准集群部署配置"><a href="#标准集群部署配置" class="headerlink" title="标准集群部署配置"></a>标准集群部署配置</h2><table>
+<thead>
+<tr>
+<th>硬件（设施）</th>
+<th>配置</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SLB负载均衡服务器</td>
+<td>依实际流量付费</td>
+<td>5</td>
+</tr>
+<tr>
+<td>前端应用服务器</td>
+<td>Intel Xeon E5-2430 2.2GHz 8G RAM 64位Win 2008 R2</td>
+<td>3 ~ 6</td>
+</tr>
+<tr>
+<td>后端应用服务器</td>
+<td>Intel Xeon E5-2430 2.2GHz 8G RAM 64位Win 2008 R2</td>
+<td>6 ~ 10</td>
+</tr>
+<tr>
+<td>CDN内容加速</td>
+<td>依图片及视频等资源的容量和使用量付费</td>
+<td></td>
+</tr>
+<tr>
+<td>Redis集群</td>
+<td>热点内容缓存</td>
+<td>按使用收费</td>
+</tr>
+<tr>
+<td>DRDS</td>
+<td>按使用收费</td>
+</tr>
+</tbody>
+</table>
+<h2 id="标准配置性能测试数据"><a href="#标准配置性能测试数据" class="headerlink" title="标准配置性能测试数据"></a>标准配置性能测试数据</h2><table>
+<thead>
+<tr>
+<th>服务器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>测试服务器</td>
+<td>一台ECS 系统:centOS 测试软件:Jmeter</td>
+</tr>
+<tr>
+<td>测试对象Himall</td>
+<td>标准集群阿里云部署</td>
+</tr>
+</tbody>
+</table>
+<h4 id="浏览首页"><a href="#浏览首页" class="headerlink" title="浏览首页"></a>浏览首页</h4><p>响应时间:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-13.png" alt="图"></p>
+<p>事务处理:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-14.png" alt="图"></p>
+<table>
+<thead>
+<tr>
+<th>测试内容</th>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首页</td>
+<td>3000</td>
+<td>0.42秒</td>
+<td>3550</td>
+</tr>
+</tbody>
+</table>
+<h4 id="浏览商品详情页"><a href="#浏览商品详情页" class="headerlink" title="浏览商品详情页"></a>浏览商品详情页</h4><p>响应时间:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-15.png" alt="图"></p>
+<p>事务处理:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-16.png" alt="图"></p>
+<table>
+<thead>
+<tr>
+<th>测试内容</th>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商品浏览</td>
+<td>3000</td>
+<td>3.16秒</td>
+<td>660</td>
+</tr>
+</tbody>
+</table>
+<h4 id="商品搜索"><a href="#商品搜索" class="headerlink" title="商品搜索"></a>商品搜索</h4><p>响应时间:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-17.png" alt="图"></p>
+<p>事务处理:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-18.png" alt="图"></p>
+<table>
+<thead>
+<tr>
+<th>测试内容</th>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+<th>关键字数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>商品搜索</td>
+<td>3000</td>
+<td>1.125秒</td>
+<td>1534.1</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<h4 id="用户登陆"><a href="#用户登陆" class="headerlink" title="用户登陆"></a>用户登陆</h4><p>响应时间:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-19.png" alt="图"></p>
+<p>事务处理:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-20.png" alt="图"></p>
+<table>
+<thead>
+<tr>
+<th>测试内容</th>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户登陆</td>
+<td>2000</td>
+<td>4.283秒</td>
+<td>349</td>
+</tr>
+</tbody>
+</table>
+<h4 id="下单"><a href="#下单" class="headerlink" title="下单"></a>下单</h4><p>响应时间:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-21.png" alt="图"></p>
+<p>事务处理:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-22.png" alt="图"></p>
+<table>
+<thead>
+<tr>
+<th>测试内容</th>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下单</td>
+<td>1000</td>
+<td>4.657秒</td>
+<td>189.1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="下单流程"><a href="#下单流程" class="headerlink" title="下单流程"></a>下单流程</h4><p>响应时间:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-23.png" alt="图"></p>
+<p>事务处理:</p>
+<p><img src="http://binyanbin.github.io/img/hishop-24.png" alt="图"></p>
+<table>
+<thead>
+<tr>
+<th>测试内容</th>
+<th>并发用户数（VU）</th>
+<th>平均响应时间（RT）</th>
+<th>每秒事务数（TPS）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>购买商品流程</td>
+<td>1000</td>
+<td>15.657秒</td>
+<td>176.8</td>
+</tr>
+</tbody>
+</table>
+</div></article></div><div data-thread-key="2016/06/07/hishop-3/" data-title="Himall集群版解决方案及性能测试结果" data-url="http://binyanbin.github.io/2016/06/07/hishop-3/" class="ds-share flat"><div class="ds-share-inline"><div class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0)" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">QQ微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li><div class="ds-share-icons-more"></div></div></div></div></section><footer><div class="paginator"><a href="/2016/06/23/hishop-4/" class="prev">上一篇</a><a href="/2016/06/05/hishop-2/" class="next">下一篇</a></div><div data-thread-key="2016/06/07/hishop-3/" data-title="Himall集群版解决方案及性能测试结果" data-url="http://binyanbin.github.io/2016/06/07/hishop-3/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"binyanbin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2016 <a href="http://binyanbin.github.io">严彬</a>, unless otherwise noted.</p></div></footer><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

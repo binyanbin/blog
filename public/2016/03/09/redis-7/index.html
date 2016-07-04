@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> redis学习7 主从复制 · 码工严彬 coding不仅仅是工作</title><meta name="description" content="redis  主从复制"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="https://github.com/binyanbin" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/2015/12/20/self-introduce/" target="_self" class="nav-list-link">INDEX</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">redis学习7 主从复制</h1><div class="post-meta"><div class="post-time">2016年3月9日</div></div><div class="post-content"><p>redis集群有二种方式，一种分区，一种主从复制。<br>redis的主从复制功能非常强大，一个master可以拥有多个slave，而一个slave又可以拥有多个slave，如此下去，形成了强大的多级服务器集群架构。下面是关于redis主从复制的一些特点：</p>
+<ul>
+<li>master可以有多个slave</li>
+<li>除了多个slave连到相同的master外，slave也可以连接其他slave形成图状结构</li>
+<li>主从复制不会阻塞master。也就是说当一个或多个slave与master进行初次同步数据时，master可以继续处理client发来的请求。相反slave在初次同步数据时则会阻塞不能处理client的请求。</li>
+<li>主从复制可以用来提高系统的可伸缩性,我们可以用多个slave专门用于client的读请求，比如sort操作可以使用slave来处理。也可以用来做简单的数据冗余<br>*可以在master禁用数据持久化，只需要注释掉master配置文件中的所有save配置，然后只在slave上配置数据持久化。<a id="more"></a>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2></li>
+<li>把安装好的redis做master,然后copy一份当slave。然后修改slave配置<br>port 6379  修改为port 6380<br>slaveof 127.0.0.1 6379  (映射到主服务器上)</li>
+<li>配置完成以后可以在二个服务中分别进行set和get操作来看效果,master可以get和set操作,slave上能get操作不能set，也就是说master可读可写，slave只能读。你在master上set数据，slave上可以查询得到。</li>
+<li>在master和slave分别执行info命令，查看结果如下：<br><img src="/img/info1.png" alt="master"><br><img src="/img/info2.png" alt="slave"></li>
+</ul>
+</div></article></div><div data-thread-key="2016/03/09/redis-7/" data-title="redis学习7 主从复制" data-url="http://binyanbin.github.io/2016/03/09/redis-7/" class="ds-share flat"><div class="ds-share-inline"><div class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0)" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">QQ微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li><div class="ds-share-icons-more"></div></div></div></div></section><footer><div class="paginator"><a href="/2016/03/10/redis-8/" class="prev">上一篇</a><a href="/2016/03/08/redis-6/" class="next">下一篇</a></div><div data-thread-key="2016/03/09/redis-7/" data-title="redis学习7 主从复制" data-url="http://binyanbin.github.io/2016/03/09/redis-7/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"binyanbin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2016 <a href="http://binyanbin.github.io">严彬</a>, unless otherwise noted.</p></div></footer><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

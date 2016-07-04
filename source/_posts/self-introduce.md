@@ -7,7 +7,7 @@ desc: 博客索引
 * [Javascript的闭包](http://binyanbin.github.io/2016/01/03/javascript-base-1/)
 * [Javascript的匿名函数](http://binyanbin.github.io/2016/02/20/javascript-base-2/)
 * [Javascript的面向对象编程](http://binyanbin.github.io/2016/02/21/javascript-base-3/)
-* [Javascript模块化开发](http://binyanbin.github.io/2016/03/21/javascript-*base-4/)
+* [Javascript模块化开发](http://binyanbin.github.io/2016/03/21/javascript-base-4/)
 
 ## redis
 
@@ -37,16 +37,19 @@ desc: 博客索引
 * [jmeter基础概念](http://binyanbin.github.io/2016/03/12/jmeter-1/)
 * [jmeter himall电商抢购业务简单测试](http://binyanbin.github.io/2016/05/13/jmeter-2/)
 
-## 杂集
+## 其它
 * [一家公司的8年技术总结](http://binyanbin.github.io/2016/02/23/8year-review/)
 * [浅谈Himall商城限时购设计](http://binyanbin.github.io/2016/04/21/hishop-1/)
 * [golang是不是后端开发神器](http://binyanbin.github.io/2016/05/08/go-1/)
 * [英语入门视频推荐](http://binyanbin.github.io/2016/05/06/english-1/)
 * [Himall架构方案总结](http://binyanbin.github.io/2016/06/05/hishop-2/)
 * [Himall集群版解决方案及性能测试结果](http://binyanbin.github.io/2016/06/07/hishop-3/)
+* [mysql出现Packets larger than max_allowed_packet are not allowed时所发现的问题](http://binyanbin.github.io/2016/06/23/hishop-4/)
 
 ## 关于博主
 
 80年代初出生,04年入行，刚入行从事asp开发。在IT行业差不多干了12年，做过6年技术管理,现任职于[Hishop](
-http://www.hishop.com.cn)。以.net为主,并从事过android,nodejs相关开发工作.
+http://www.hishop.com.cn).
 QQ:8999482 邮箱:yanbin.yb@hotmail.com 技术交流,欢迎骚扰。
+微信:
+![图](http://binyanbin.github.io/img/mywechat.png)

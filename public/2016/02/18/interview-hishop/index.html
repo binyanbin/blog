@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 电商面试题 · 码工严彬 coding不仅仅是工作</title><meta name="description" content="电商 抢购 超卖"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="https://github.com/binyanbin" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/2015/12/20/self-introduce/" target="_self" class="nav-list-link">INDEX</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">电商面试题</h1><div class="post-meta"><div class="post-time">2016年2月18日</div></div><div class="post-content"><p>15年年底去一家电商服务公司面试，其中有一道题目是如何解决电商站点商品秒杀的相关问题。<a href="https://github.com/hishopdc/dc2015" target="_blank" rel="external">面试题目可以参见</a>。固定的数据库结构下实现三个接口，查看、下单、付款。<br><a id="more"></a></p>
+<h2 id="主要问题-高并发查询及更新数据库"><a href="#主要问题-高并发查询及更新数据库" class="headerlink" title="主要问题:高并发查询及更新数据库"></a>主要问题:高并发查询及更新数据库</h2><p>解决的方案其实比较其实并不复杂，也很常规。无非就是用缓存队列实现批量更新数据库。把下单的数据放入队列中，然后批量更新到数据库中去。说起来比较简单，实践中还是踩了一些坑。</p>
+<h3 id="主要实现逻辑"><a href="#主要实现逻辑" class="headerlink" title="主要实现逻辑"></a>主要实现逻辑</h3><p>订单处理类<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 订单缓存队列处理类</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OrderCacheQuene</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 订单队列缓存</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;Order&gt; _orders;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 数据库操作接口</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> IPromotion _service;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 锁</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">object</span> _locker = <span class="keyword">new</span> <span class="keyword">object</span>();</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 队列处理线程</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Thread _thread;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 订单队列启动</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        _thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> ThreadStart(OrderDispose));</span><br><span class="line">        _thread.Start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 缓存结束</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">End</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">lock</span> (_locker)</span><br><span class="line">        &#123;</span><br><span class="line">            _thread.Abort();</span><br><span class="line">            _service.OrderTrans(_orders);</span><br><span class="line">            _orders.Clear();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 下单</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">OrderBuy</span>(<span class="params">Order o</span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">lock</span> (_locker)</span><br><span class="line">        &#123;</span><br><span class="line">            _orders.Add(o);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> o.OrderId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 支付</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">OrderPay</span>(<span class="params">RequestPay o, DateTime? paytime</span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">lock</span> (_locker)</span><br><span class="line">        &#123;</span><br><span class="line">        	Order order = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">int</span> index = _orders.FindIndex(t =&gt; t.OrderId == o.order_id &amp;&amp; t.UserId == o.uid);</span><br><span class="line">            <span class="keyword">if</span> (index &gt;= <span class="number">0</span>)<span class="comment"><span class="doctag">///</span>已存在缓存中</span></span><br><span class="line">            &#123;</span><br><span class="line">                _orders[index].PayTime = paytime;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;            	</span><br><span class="line">            order = _service.GetOrder(o.order_id);</span><br><span class="line">            <span class="keyword">if</span> (order == <span class="literal">null</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">else</span><span class="comment"><span class="doctag">///</span>已存在数据库中</span></span><br><span class="line">            &#123;</span><br><span class="line">                order.PayTime = paytime;</span><br><span class="line">                <span class="keyword">lock</span> (_locker)</span><br><span class="line">                &#123;</span><br><span class="line">                    _orders.Add(order);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 判断队列是否已满</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">isFull</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> _orders.Count &gt;= Constant.QueueMaxCount ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 订单队列处理事件</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">OrderDispose</span>(<span class="params"></span>)</span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//DateTime starttime = DateTime.Now;</span></span><br><span class="line">            <span class="keyword">lock</span> (_locker)</span><br><span class="line">            &#123;</span><br><span class="line">               List&lt;Order&gt; orders =  _orders.Take(Constant.MaxOrderDispose).ToList();</span><br><span class="line">                _service.OrderTrans(orders.ToList());<span class="comment">//调用数据库接口处理订单</span></span><br><span class="line">                <span class="keyword">foreach</span> (Order o <span class="keyword">in</span> orders)</span><br><span class="line">                    _orders.Remove(o);</span><br><span class="line">            &#125;</span><br><span class="line">            Thread.Sleep(Constant.QueueDisposeTimeSpan);<span class="comment">//每次处理完成休眠</span></span><br><span class="line">            <span class="comment">//DateTime endtime = DateTime.Now;</span></span><br><span class="line">            <span class="comment">//System.Diagnostics.Debug.WriteLine("Yanbin TimeSpan:"+endtime.Subtract(starttime).Milliseconds);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>缓存我直接使用的静态对像，效果是一样的。批量提交的方法是 _service.OrderTrans，在这里就不列出来，但是一些数据库操作。</p>
+<p>订单队列启动与结束</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class WebApiApplication : System.Web.HttpApplication</span><br><span class="line">&#123;</span><br><span class="line">    protected void Application_Start()</span><br><span class="line">    &#123;</span><br><span class="line">        //订单队列初始化</span><br><span class="line">        OrderCacheQuene.Start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected void Application_End()</span><br><span class="line">    &#123;</span><br><span class="line">        //结束处理</span><br><span class="line">        OrderCacheQuene.End();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="坑1-超卖"><a href="#坑1-超卖" class="headerlink" title="坑1:超卖"></a>坑1:超卖</h3><p>程序实现以后，我写了一个测试程序去跑它，跑到200线程时超卖了，思来想去之后发现是判断的问题，开始下单时的判断条件没有放到订单队列程序里面。因为并发大，所以有一些客户端请求下单的时候,程序判断是满足下单条件,但是还有一些客户端的请求正在响应，把订单加入缓存了，造成判断不一致，最终引起超卖。所以下单的条件判断需要加到锁里面，虽然对性能上有一些损耗，但是可以保证不会超卖。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 下单</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">OrderBuy</span>(<span class="params">Order o</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">lock</span> (_locker)</span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span> (队列已满，已卖空，已下单等条件)</span><br><span class="line">     	<span class="keyword">return</span> <span class="literal">null</span>;            	</span><br><span class="line">        _orders.Add(o);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o.OrderId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="坑2-效率坑"><a href="#坑2-效率坑" class="headerlink" title="坑2:效率坑"></a>坑2:效率坑</h3><p>做web接口，在.net的系统中当然用webapi,更种好处用过都知道，没想到在高并发的条件下效率不如handler。以下这些数据是在我这台旧的笔记本上测试出来的。</p>
+<table>
+<thead>
+<tr>
+<th>线程数</th>
+<th>线程调用接口数</th>
+<th>处理方式</th>
+<th>说明</th>
+<th>产生订单数</th>
+<th>接口方式</th>
+<th>完成时间(秒)</th>
+<th>完成时间(分钟)</th>
+<th>处理请求总数</th>
+<th>平均每秒处理请求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000</td>
+<td>100</td>
+<td>只查询</td>
+<td>2000人同时查100种商品</td>
+<td>0</td>
+<td>handler</td>
+<td>650.5</td>
+<td>10.84</td>
+<td>199706</td>
+<td>307.004</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>100</td>
+<td>只查询</td>
+<td>2000人同时查100种商品</td>
+<td>0</td>
+<td>api</td>
+<td>1180.8</td>
+<td>19.68</td>
+<td>199747</td>
+<td>169.162</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>50</td>
+<td>只查询</td>
+<td>1000人同时查50种商品</td>
+<td>0</td>
+<td>handler</td>
+<td>86.3</td>
+<td>1.44</td>
+<td>49932</td>
+<td>578.586</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>50</td>
+<td>只查询</td>
+<td>1000人同时查50种商品</td>
+<td>0</td>
+<td>api</td>
+<td>103.9</td>
+<td>1.73</td>
+<td>49948</td>
+<td>480.731</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>10</td>
+<td>抢购</td>
+<td>2000人抢100个订单</td>
+<td>100</td>
+<td>handler</td>
+<td>81.9</td>
+<td>1.37</td>
+<td>40430</td>
+<td>493.651</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>10</td>
+<td>抢购</td>
+<td>2000人抢100个订单</td>
+<td>100</td>
+<td>api</td>
+<td>79.7</td>
+<td>1.33</td>
+<td>28738</td>
+<td>360.577</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>50</td>
+<td>并发购买</td>
+<td>50个人同时买2000种不同商品</td>
+<td>100000</td>
+<td>Handler</td>
+<td>3467</td>
+<td>57.78299471</td>
+<td>86.378</td>
+</tr>
+<tr>
+<td>2000</td>
+<td>50</td>
+<td>并发购买</td>
+<td>50个人同时买2000种不同商品</td>
+<td>100000</td>
+<td>api</td>
+<td>3638</td>
+<td>60.63</td>
+<td>299375</td>
+<td>82.291</td>
+</tr>
+</tbody>
+</table>
+<p>从上图可以看出，在高并发情况下webapi的性能确实不行。</p>
+<h3 id="开发总结"><a href="#开发总结" class="headerlink" title="开发总结"></a>开发总结</h3><ul>
+<li>锁在高并发的情况下的使用，如何满足业务要求。</li>
+<li>缓存的使用，缓存与数据库之间的数据如何保持一致。</li>
+<li>对于大型电商网站，缓存队列需要设置上限，不然会引起内存问题，不过在这里不是这道题目的重点。</li>
+</ul>
+<p><a href="https://github.com/binyanbin/interview/" target="_blank" rel="external">源码下载</a></p>
+</div></article></div><div data-thread-key="2016/02/18/interview-hishop/" data-title="电商面试题" data-url="http://binyanbin.github.io/2016/02/18/interview-hishop/" class="ds-share flat"><div class="ds-share-inline"><div class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0)" class="ds-more">分享到:</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">QQ微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li><div class="ds-share-icons-more"></div></div></div></div></section><footer><div class="paginator"><a href="/2016/02/20/javascript-base-2/" class="prev">上一篇</a><a href="/2016/01/03/javascript-base-1/" class="next">下一篇</a></div><div data-thread-key="2016/02/18/interview-hishop/" data-title="电商面试题" data-url="http://binyanbin.github.io/2016/02/18/interview-hishop/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"binyanbin"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2016 <a href="http://binyanbin.github.io">严彬</a>, unless otherwise noted.</p></div></footer><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?fcf7e8f303b6e03be86f5619636d0f7e";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
