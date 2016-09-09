@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://binyanbin.github.io/2015/12/20/self-introduce/</loc>
+    <loc>http://binyanbin.github.io/2016/09/04/shortcut/</loc>
     
-    <lastmod>2016-09-09T13:53:14.000Z</lastmod>
+    <lastmod>2016-09-09T17:05:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/09/04/shortcut/</loc>
+    <loc>http://binyanbin.github.io/2015/12/20/self-introduce/</loc>
     
-    <lastmod>2016-09-09T13:48:13.000Z</lastmod>
+    <lastmod>2016-09-09T13:53:14.000Z</lastmod>
     
   </url>
   
@@ -58,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/03/31/c-4/</loc>
+    <loc>http://binyanbin.github.io/2016/04/12/c-5/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -86,7 +86,7 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/06/05/hishop-2/</loc>
+    <loc>http://binyanbin.github.io/2016/05/08/go-1/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -100,7 +100,14 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/05/08/go-1/</loc>
+    <loc>http://binyanbin.github.io/2016/04/21/hishop-1/</loc>
+    
+    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://binyanbin.github.io/2016/06/05/hishop-2/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -121,7 +128,7 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/04/21/hishop-1/</loc>
+    <loc>http://binyanbin.github.io/2016/04/30/CSharp-1/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -135,7 +142,7 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/04/30/CSharp-1/</loc>
+    <loc>http://binyanbin.github.io/2016/02/20/javascript-base-2/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -143,13 +150,6 @@
   
   <url>
     <loc>http://binyanbin.github.io/2016/03/23/c-1/</loc>
-    
-    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://binyanbin.github.io/2016/02/20/javascript-base-2/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -170,14 +170,7 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/03/12/jmeter-1/</loc>
-    
-    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://binyanbin.github.io/2016/05/13/jmeter-2/</loc>
+    <loc>http://binyanbin.github.io/2016/03/25/c-3/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -191,7 +184,14 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/03/25/c-3/</loc>
+    <loc>http://binyanbin.github.io/2016/05/13/jmeter-2/</loc>
+    
+    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://binyanbin.github.io/2016/03/12/jmeter-1/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -205,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/02/28/redis-1/</loc>
+    <loc>http://binyanbin.github.io/2016/03/03/redis-3/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://binyanbin.github.io/2016/03/03/redis-3/</loc>
+    <loc>http://binyanbin.github.io/2016/02/28/redis-1/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
@@ -240,6 +240,20 @@
   </url>
   
   <url>
+    <loc>http://binyanbin.github.io/2016/03/31/c-4/</loc>
+    
+    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://binyanbin.github.io/2016/04/13/c-6/</loc>
+    
+    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://binyanbin.github.io/2016/03/09/redis-7/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
@@ -248,20 +262,6 @@
   
   <url>
     <loc>http://binyanbin.github.io/2016/03/10/redis-8/</loc>
-    
-    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://binyanbin.github.io/2016/04/12/c-5/</loc>
-    
-    <lastmod>2016-06-15T15:52:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://binyanbin.github.io/2016/04/13/c-6/</loc>
     
     <lastmod>2016-06-15T15:52:46.000Z</lastmod>
     
