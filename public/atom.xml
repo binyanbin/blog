@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://binyanbin.github.io/"/>
-  <updated>2016-07-04T13:59:05.000Z</updated>
+  <updated>2016-09-09T12:02:30.000Z</updated>
   <id>http://binyanbin.github.io/</id>
   
   <author>
@@ -14,6 +14,79 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nginx 速记1</title>
+    <link href="http://binyanbin.github.io/2016/09/10/nginx-1/"/>
+    <id>http://binyanbin.github.io/2016/09/10/nginx-1/</id>
+    <published>2016-09-09T16:00:00.000Z</published>
+    <updated>2016-09-09T12:02:30.000Z</updated>
+    
+    <content type="html">&lt;p&gt;示例:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;http &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	log_format upstream_time &amp;apos;$remote_addr - $remote_user [$time_local] &amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                             &amp;apos;&amp;quot;$request&amp;quot; $status $body_bytes_sent &amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                             &amp;apos;&amp;quot;$http_referer&amp;quot; &amp;quot;$http_user_agent&amp;quot;&amp;apos;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                             &amp;apos;rt=$request_time uct=&amp;quot;$upstream_connect_time&amp;quot; uht=&amp;quot;$upstream_header_time&amp;quot; urt=&amp;quot;$upstream_response_time&amp;quot;&amp;apos;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    server &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	access_log /spool/logs/nginx-access.log upstream_time;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	error_log logs/error.log warn;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		listen 80 backlog 4096;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		server_name example.org www.example.org;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		location /images/ &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        	root /data;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        	index index.html;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        	sendfile   on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		tcp_nopush on;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	location ~ \.php &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		proxy_set_header Host $host;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		proxy_set_header X-Real-IP $remote_addr;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		proxy_set_header Accept-Encoding &amp;quot;&amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		proxy_buffers 16 4k;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    		proxy_buffer_size 2k;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		    proxy_pass http://localhost:8000;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;web服务器&quot;&gt;&lt;a href=&quot;#web服务器&quot; class=&quot;headerlink&quot; title=&quot;web服务器&quot;&gt;&lt;/a&gt;web服务器&lt;/h2&gt;&lt;p&gt;http 服务&lt;br&gt;server 虚拟机&lt;br&gt;location 路径&lt;br&gt;listen 监听端口 backlog 堆大小&lt;/p&gt;
+&lt;h2 id=&quot;静态资源&quot;&gt;&lt;a href=&quot;#静态资源&quot; class=&quot;headerlink&quot; title=&quot;静态资源&quot;&gt;&lt;/a&gt;静态资源&lt;/h2&gt;&lt;p&gt;location 路径(正则表达式):&lt;br&gt;root 目录&lt;br&gt;index  默认页面&lt;/p&gt;
+&lt;p&gt;上传文件设置:&lt;br&gt;sendfile           on;&lt;br&gt;sendfile_max_chunk 1m;&lt;/p&gt;
+&lt;h2 id=&quot;代理&quot;&gt;&lt;a href=&quot;#代理&quot; class=&quot;headerlink&quot; title=&quot;代理&quot;&gt;&lt;/a&gt;代理&lt;/h2&gt;&lt;p&gt;针对路径&lt;br&gt;proxy_pass 转发地址&lt;br&gt;proxy_set_header 设置头信息&lt;br&gt;Ｈost 域名&lt;br&gt;X-Real-IP 客户端地址&lt;br&gt;proxy_buffers off/on&lt;br&gt;proxy_buffers 缓存&lt;br&gt;proxy_buffer_size 缓存大小&lt;/p&gt;
+&lt;h2 id=&quot;日志&quot;&gt;&lt;a href=&quot;#日志&quot; class=&quot;headerlink&quot; title=&quot;日志&quot;&gt;&lt;/a&gt;日志&lt;/h2&gt;&lt;p&gt;针对主机&lt;br&gt;error_log&lt;br&gt;access_log&lt;/p&gt;
+&lt;p&gt;查看监听:&lt;br&gt;netstat -Lan&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;示例:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我的mac快捷键浓缩版</title>
+    <link href="http://binyanbin.github.io/2016/09/04/shortcut/"/>
+    <id>http://binyanbin.github.io/2016/09/04/shortcut/</id>
+    <published>2016-09-03T16:00:00.000Z</published>
+    <updated>2016-09-09T13:48:13.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;mac基础&quot;&gt;&lt;a href=&quot;#mac基础&quot; class=&quot;headerlink&quot; title=&quot;mac基础:&quot;&gt;&lt;/a&gt;mac基础:&lt;/h2&gt;&lt;p&gt;ctrl+上下左右   切屏&lt;br&gt;cmd+上下左右  定位&lt;br&gt;cmd+shift+上下左右  定位+选择&lt;br&gt;fn+上下左右  滚动&lt;br&gt;ctrl+cmd+f  全屏&lt;/p&gt;
+&lt;h2 id=&quot;chrome&quot;&gt;&lt;a href=&quot;#chrome&quot; class=&quot;headerlink&quot; title=&quot;chrome&quot;&gt;&lt;/a&gt;chrome&lt;/h2&gt;&lt;p&gt;cmd+l 地址栏&lt;br&gt;cmd+option+左右 切页面&lt;br&gt;ctrl+tab 切页面&lt;br&gt;cmd+t 新页面&lt;br&gt;cmd+w 关闭页面&lt;br&gt;cmd+option+i 开发者工具&lt;/p&gt;
+&lt;h2 id=&quot;vim&quot;&gt;&lt;a href=&quot;#vim&quot; class=&quot;headerlink&quot; title=&quot;vim&quot;&gt;&lt;/a&gt;vim&lt;/h2&gt;&lt;p&gt;:set number 显示行号&lt;br&gt;:syntax on 语法显示&lt;br&gt;:%d 删除全部内容&lt;br&gt;w下一个单词&lt;br&gt;b上一个单词&lt;br&gt;gg文件首&lt;br&gt;Ｇ文件尾&lt;br&gt;0行首&lt;br&gt;^行首文字&lt;br&gt;$行尾&lt;br&gt;dd删除当前行&lt;br&gt;3x 删除后3个字符 3X 删除前3个个字符&lt;br&gt;1G 调到第11行&lt;br&gt;Ctrl+f Ctrl+b 翻页&lt;br&gt;/word 查找 n 查找下一个&lt;br&gt;u  ctrl+r   撤销 重做&lt;/p&gt;
+&lt;h2 id=&quot;bash&quot;&gt;&lt;a href=&quot;#bash&quot; class=&quot;headerlink&quot; title=&quot;bash&quot;&gt;&lt;/a&gt;bash&lt;/h2&gt;&lt;p&gt;ctrl+a 开头&lt;br&gt;ctrl+e 结毛&lt;br&gt;ctrl+k 清除光标后至行尾&lt;br&gt;ctrl+u清除光标至之前&lt;br&gt;tab 补全&lt;br&gt;ctrl+c 终止&lt;/p&gt;
+&lt;h2 id=&quot;sublime&quot;&gt;&lt;a href=&quot;#sublime&quot; class=&quot;headerlink&quot; title=&quot;sublime&quot;&gt;&lt;/a&gt;sublime&lt;/h2&gt;&lt;p&gt;ctrl+k+b 目录显示/隐藏&lt;br&gt;cmd+option+number 分屏&lt;br&gt;ctrl+shift+number 移屏&lt;br&gt;cmd+option+左右 切文件&lt;br&gt;ctrl+tab 切文件&lt;br&gt;cmd+p 查找文件&lt;br&gt;cmd+shift+p  插件命令&lt;br&gt;cmd+alt+g 快找&lt;br&gt;cmd+f 查找 alt+cmd+r 正则&lt;br&gt;cmd+shift+f 替换&lt;br&gt;cmd+k+u 大写 cmd+k+l 小写&lt;br&gt;cmd+k+num 折到第几层&lt;br&gt;cmd+k+j 全部展开&lt;br&gt;cmd+k+k 删除到行末尾&lt;br&gt;cmd+w 关闭文件&lt;br&gt;cmd+shift+w 关闭窗口&lt;br&gt;ctrl+shift+k 删除行&lt;br&gt;F6 拼写检查&lt;/p&gt;
+&lt;h2 id=&quot;eclispe&quot;&gt;&lt;a href=&quot;#eclispe&quot; class=&quot;headerlink&quot; title=&quot;eclispe&quot;&gt;&lt;/a&gt;eclispe&lt;/h2&gt;&lt;p&gt;cmd+e 已打开文件&lt;br&gt;cmd+o 文件导航&lt;br&gt;cmd+alt+s 生成&lt;br&gt;cmd+f7 切换窗体&lt;br&gt;f3 转定义&lt;br&gt;cmd+shift+g 转引用&lt;br&gt;cmd+shift+r 打开文件&lt;br&gt;cmd+shift+h 打开类型&lt;br&gt;cmd+alt+r 重命名&lt;br&gt;cmd+1 快速修复&lt;br&gt;ctrl+q 回到最后一次编辑的地方&lt;br&gt;alt+/  内容提示&lt;br&gt;cmd+/ 注释&lt;br&gt;cmd+t 查看继承关系&lt;br&gt;cmd+shift+f 格式化&lt;br&gt;cmd+alt+j 添加完整注释&lt;br&gt;ctrl+m 隐藏package&lt;br&gt;cmd+shift+[ 分坚屏&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;mac基础&quot;&gt;&lt;a href=&quot;#mac基础&quot; class=&quot;headerlink&quot; title=&quot;mac基础:&quot;&gt;&lt;/a&gt;mac基础:&lt;/h2&gt;&lt;p&gt;ctrl+上下左右   切屏&lt;br&gt;cmd+上下左右  定位&lt;br&gt;cmd+shift+上下左右  定位+选择&lt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>正则速记</title>
+    <link href="http://binyanbin.github.io/2016/08/18/regex/"/>
+    <id>http://binyanbin.github.io/2016/08/18/regex/</id>
+    <published>2016-08-17T16:00:00.000Z</published>
+    <updated>2016-09-04T14:50:13.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;元字符&quot;&gt;&lt;a href=&quot;#元字符&quot; class=&quot;headerlink&quot; title=&quot;元字符&quot;&gt;&lt;/a&gt;元字符&lt;/h2&gt;&lt;p&gt;.   :匹配任意字符&lt;br&gt;\   :转义&lt;br&gt;^  :行开始位置&lt;br&gt;$  :行结束位置&lt;/p&gt;
+&lt;h2 id=&quot;范围&quot;&gt;&lt;a href=&quot;#范围&quot; class=&quot;headerlink&quot; title=&quot;范围&quot;&gt;&lt;/a&gt;范围&lt;/h2&gt;&lt;p&gt;[  ]:&lt;br&gt;[0-9],[a-z] : 字符范围&lt;br&gt;^ : 取反   [^a]&lt;/p&gt;
+&lt;h2 id=&quot;重复&quot;&gt;&lt;a href=&quot;#重复&quot; class=&quot;headerlink&quot; title=&quot;重复&quot;&gt;&lt;/a&gt;重复&lt;/h2&gt;&lt;p&gt;{ }:&lt;br&gt;a{3}   3次&lt;br&gt;a{3,5} 3到5次&lt;br&gt;?等于{0,1}&lt;br&gt;*等于{0,}&lt;br&gt;+等于{1,}&lt;/p&gt;
+&lt;h2 id=&quot;分组与选择&quot;&gt;&lt;a href=&quot;#分组与选择&quot; class=&quot;headerlink&quot; title=&quot;分组与选择&quot;&gt;&lt;/a&gt;分组与选择&lt;/h2&gt;&lt;p&gt;|:&lt;br&gt;cat|dog, [cat|dog]&lt;br&gt;(cat|dog)&lt;/p&gt;
+&lt;h2 id=&quot;常用集合&quot;&gt;&lt;a href=&quot;#常用集合&quot; class=&quot;headerlink&quot; title=&quot;常用集合:&quot;&gt;&lt;/a&gt;常用集合:&lt;/h2&gt;&lt;p&gt;\w = [0-9A-Za-z]    \s  空格, 制表符,回车或换行符&lt;br&gt;\W = [^0-9A-Za-z]  \d   数值&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;元字符&quot;&gt;&lt;a href=&quot;#元字符&quot; class=&quot;headerlink&quot; title=&quot;元字符&quot;&gt;&lt;/a&gt;元字符&lt;/h2&gt;&lt;p&gt;.   :匹配任意字符&lt;br&gt;\   :转义&lt;br&gt;^  :行开始位置&lt;br&gt;$  :行结束位置&lt;/p&gt;
+&lt;h2 id=&quot;范围&quot;&gt;&lt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>你确定真的要做互联网项目吗</title>
@@ -757,146 +830,6 @@ sb.Append(str3);
     <summary type="html">
     
       &lt;p&gt;很多牛人有自己的个性化的命令行，为什么我没有呢?晚上我就写了一个。效果如下:&lt;br&gt;&lt;img src=&quot;/img/c-1.png&quot; alt=&quot;效果&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>C语言之编译器GCC</title>
-    <link href="http://binyanbin.github.io/2016/03/23/c-1/"/>
-    <id>http://binyanbin.github.io/2016/03/23/c-1/</id>
-    <published>2016-03-22T16:00:00.000Z</published>
-    <updated>2016-06-15T15:52:46.000Z</updated>
-    
-    <content type="html">&lt;h2 id=&quot;为什么是C&quot;&gt;&lt;a href=&quot;#为什么是C&quot; class=&quot;headerlink&quot; title=&quot;为什么是C&quot;&gt;&lt;/a&gt;为什么是C&lt;/h2&gt;&lt;p&gt;很多牛B的开源项目都是C实现的，如redis,nginx,memcache,node等等。主要原因是C语言比较简单(相对C++来说)，编译器稳定可靠。C如果借鉴一些良好设计,C一样可以写的很好，如果习惯了，开发效率未必会比C++低。那么C怎么编译呢?&lt;/p&gt;
-&lt;h2 id=&quot;GCC&quot;&gt;&lt;a href=&quot;#GCC&quot; class=&quot;headerlink&quot; title=&quot;GCC&quot;&gt;&lt;/a&gt;GCC&lt;/h2&gt;&lt;p&gt;GCC(GNU Compiler Collection)，GNU编译器集合,是一套由 GNU 开发的编程语言编译器。其中包括了ANSI C Compiler。在现在遍地都是IDE的时代，很多开发人员都忘了怎么用cli去编译程序。gcc编译过程是分为四个阶段进行的，即预处理(也称预编译,Preprocessing)、编译(Compilation)、汇编(Assembly)和连接(Linking)。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;预处理&quot;&gt;&lt;a href=&quot;#预处理&quot; class=&quot;headerlink&quot; title=&quot;预处理&quot;&gt;&lt;/a&gt;预处理&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gcc -E test.c -o test.i&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;可以输出test.i文件中存放着test.c经预处理之后的代码。打开test.i文件，看一看，就明白了。&lt;/p&gt;
-&lt;h4 id=&quot;编译&quot;&gt;&lt;a href=&quot;#编译&quot; class=&quot;headerlink&quot; title=&quot;编译&quot;&gt;&lt;/a&gt;编译&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gcc -S test.i -o test.s&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;预处理之后，可直接对生成的test.i文件编译，生成汇编代码。&lt;/p&gt;
-&lt;h4 id=&quot;汇编&quot;&gt;&lt;a href=&quot;#汇编&quot; class=&quot;headerlink&quot; title=&quot;汇编&quot;&gt;&lt;/a&gt;汇编&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gcc -c test.s -o test.o&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;汇编器可以将汇编代码编译为目标文件。&lt;/p&gt;
-&lt;h4 id=&quot;连接&quot;&gt;&lt;a href=&quot;#连接&quot; class=&quot;headerlink&quot; title=&quot;连接&quot;&gt;&lt;/a&gt;连接&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gcc test.o -o &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;gcc连接器是gas提供的，负责将程序的目标文件与所需的所有附加的目标文件连接起来，最终生成可执行文件。附加的目标文件包括静态连接库和动态连接库。&lt;/p&gt;
-&lt;h4 id=&quot;简单编译&quot;&gt;&lt;a href=&quot;#简单编译&quot; class=&quot;headerlink&quot; title=&quot;简单编译&quot;&gt;&lt;/a&gt;简单编译&lt;/h4&gt;&lt;p&gt;一步到位:&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gcc test.c -o &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h4 id=&quot;多个程序文件的编译&quot;&gt;&lt;a href=&quot;#多个程序文件的编译&quot; class=&quot;headerlink&quot; title=&quot;多个程序文件的编译&quot;&gt;&lt;/a&gt;多个程序文件的编译&lt;/h4&gt;&lt;p&gt;通常整个程序是由多个源文件组成的，相应地也就形成了多个编译单元，使用GCC能够很好地管理这些编译单元。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;gcc -c &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;1.c -o &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;1.o&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gcc -c &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;2.c -o &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;2.o&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gcc &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;1.o &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;2.o -o &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;h2 id=&quot;MakeFile&quot;&gt;&lt;a href=&quot;#MakeFile&quot; class=&quot;headerlink&quot; title=&quot;MakeFile&quot;&gt;&lt;/a&gt;MakeFile&lt;/h2&gt;&lt;p&gt;同样IDE的开发人员估计一般都不知道，IDE都为你做了这个工作。一个软件的代码文件是非常多的，如果你要自己一个个去写编译规则是相当复杂的。那么makefile就是解决整个软件的编译规则。一个软件项目中的源文件不计数，其按类型、功能、模块分别放在若干个目录中，makefile定义了一系列的规则来指定，哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至于进行更复杂的功能操作。makefile带来的好处就是——“自动化编译”，一旦写好，只需要一个make命令，整个工程完全自动编译，极大的提高了效率。&lt;/p&gt;
-&lt;h2 id=&quot;MinGW&quot;&gt;&lt;a href=&quot;#MinGW&quot; class=&quot;headerlink&quot; title=&quot;MinGW&quot;&gt;&lt;/a&gt;MinGW&lt;/h2&gt;&lt;p&gt;MinGW是指只用自由软件来生成纯粹的Win32可执行文件的编译环境，它是Minimalist GNU on Windows的略称。&lt;/p&gt;
-&lt;h4 id=&quot;下载MinGW&quot;&gt;&lt;a href=&quot;#下载MinGW&quot; class=&quot;headerlink&quot; title=&quot;下载MinGW&quot;&gt;&lt;/a&gt;下载MinGW&lt;/h4&gt;&lt;p&gt;到Sourceforge(&lt;a href=&quot;http://sourceforge.net/project/showfiles.php?group_id=2435)下载一个MinGW.exe。&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://sourceforge.net/project/showfiles.php?group_id=2435)下载一个MinGW.exe。&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;环境变量的配置&quot;&gt;&lt;a href=&quot;#环境变量的配置&quot; class=&quot;headerlink&quot; title=&quot;环境变量的配置&quot;&gt;&lt;/a&gt;环境变量的配置&lt;/h4&gt;&lt;p&gt;a.在PATH的值中加入“C:\MinGW\bin”。这是寻找gcc编译器的路径。如果PATH中还有其他内容，需要用英文状态下分号进行分割&lt;br&gt;b.新建LIBRARY_PATH变量，在其值中加入“C:\MinGW\lib”。这是标准库存放的路径。&lt;br&gt;c.新建C_INCLUDE_PATH变量，在其值中加入“C:\MinGW\include”。这是Include查找头文件的路径。&lt;/p&gt;
-&lt;h4 id=&quot;验证gcc是否正常运行&quot;&gt;&lt;a href=&quot;#验证gcc是否正常运行&quot; class=&quot;headerlink&quot; title=&quot;验证gcc是否正常运行&quot;&gt;&lt;/a&gt;验证gcc是否正常运行&lt;/h4&gt;&lt;p&gt;在cmd控制台窗口下面,输入gcc -v.若已经成功安装好,会显示gcc的版本信息。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;为什么是C&quot;&gt;&lt;a href=&quot;#为什么是C&quot; class=&quot;headerlink&quot; title=&quot;为什么是C&quot;&gt;&lt;/a&gt;为什么是C&lt;/h2&gt;&lt;p&gt;很多牛B的开源项目都是C实现的，如redis,nginx,memcache,node等等。主要原因是C语言比较简单(相对C++来说)，编译器稳定可靠。C如果借鉴一些良好设计,C一样可以写的很好，如果习惯了，开发效率未必会比C++低。那么C怎么编译呢?&lt;/p&gt;
-&lt;h2 id=&quot;GCC&quot;&gt;&lt;a href=&quot;#GCC&quot; class=&quot;headerlink&quot; title=&quot;GCC&quot;&gt;&lt;/a&gt;GCC&lt;/h2&gt;&lt;p&gt;GCC(GNU Compiler Collection)，GNU编译器集合,是一套由 GNU 开发的编程语言编译器。其中包括了ANSI C Compiler。在现在遍地都是IDE的时代，很多开发人员都忘了怎么用cli去编译程序。gcc编译过程是分为四个阶段进行的，即预处理(也称预编译,Preprocessing)、编译(Compilation)、汇编(Assembly)和连接(Linking)。&lt;br&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Javascript模块化开发</title>
-    <link href="http://binyanbin.github.io/2016/03/21/javascript-base-4/"/>
-    <id>http://binyanbin.github.io/2016/03/21/javascript-base-4/</id>
-    <published>2016-03-20T16:00:00.000Z</published>
-    <updated>2016-06-15T15:52:46.000Z</updated>
-    
-    <content type="html">&lt;p&gt;Javascript不算模块化编程语言，但是web开发需要团队开发和团队协做。现在javascript模块化开发已非常正熟，支持模块化开发的框架非常多。&lt;/p&gt;
-&lt;h2 id=&quot;原始写法&quot;&gt;&lt;a href=&quot;#原始写法&quot; class=&quot;headerlink&quot; title=&quot;原始写法&quot;&gt;&lt;/a&gt;原始写法&lt;/h2&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;func1&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;func2&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;只要把不同的函数简单地放在一个文件中，就算是一个模块，通常一个文件一个模块。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;jquery时代&quot;&gt;&lt;a href=&quot;#jquery时代&quot; class=&quot;headerlink&quot; title=&quot;jquery时代&quot;&gt;&lt;/a&gt;jquery时代&lt;/h2&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;　　&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; module1 = (&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;$, windows&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;　　　　&lt;span class=&quot;comment&quot;&gt;//...&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;　　&amp;#125;)(jQuery, windows);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;通过立即执行匿名函数来达到封装的作用,如模块内部调用全局变量，则将其输入模块中。&lt;/p&gt;
-&lt;h2 id=&quot;commonjs时代&quot;&gt;&lt;a href=&quot;#commonjs时代&quot; class=&quot;headerlink&quot; title=&quot;commonjs时代&quot;&gt;&lt;/a&gt;commonjs时代&lt;/h2&gt;&lt;p&gt;commonjs规范是目前JavaScript模块化的事实标准。支持commonjs规范的框架及程序比较多，如node,seajs.规范中最重要的二点:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;require它是一个函数,引用其它模块使用require。&lt;/li&gt;
-&lt;li&gt;exports是一个对象，导出模块api使用exports，可供其它模块调用。&lt;br&gt;当然除了这两点还有一些其它细节不一一介绍。下面看一个示例:&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;math.js&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;exports.add=&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;x,y&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; x+y;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;increment.js&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; add = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&#39;math&#39;&lt;/span&gt;).add;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;exports.increment = &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;val&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; add(val,&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;program.js&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; inc = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&#39;increment&#39;&lt;/span&gt;).increment;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; a = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inc(a);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Javascript不算模块化编程语言，但是web开发需要团队开发和团队协做。现在javascript模块化开发已非常正熟，支持模块化开发的框架非常多。&lt;/p&gt;
-&lt;h2 id=&quot;原始写法&quot;&gt;&lt;a href=&quot;#原始写法&quot; class=&quot;headerlink&quot; title=&quot;原始写法&quot;&gt;&lt;/a&gt;原始写法&lt;/h2&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;func1&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;func2&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;只要把不同的函数简单地放在一个文件中，就算是一个模块，通常一个文件一个模块。&lt;br&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>jmeter 基础概念</title>
-    <link href="http://binyanbin.github.io/2016/03/12/jmeter-1/"/>
-    <id>http://binyanbin.github.io/2016/03/12/jmeter-1/</id>
-    <published>2016-03-11T16:00:00.000Z</published>
-    <updated>2016-06-15T15:52:46.000Z</updated>
-    
-    <content type="html">&lt;p&gt;最近做性能优化工作，同时要给自己的工作给一个总结。需要自己弄性能测试及编写性能测试报告。在别人推荐下使用JMeter对项目进行性能测试。JMeter可以进行配置和执行负载测试、性能测试和压力测试的工具。了解一下几个概念:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;负载测试: 这类测试使系统或者应用程序在预先设计好的极端场景下测试运行。这类测试用来评估系统或者程序在极端条件下的行为。&lt;/li&gt;
-&lt;li&gt;性能测试: 这种测试被用来检测系统的性能表现，包括特定情况下，系统的响应能力和稳定性。&lt;/li&gt;
-&lt;li&gt;压力测试: 这类测试通过载入更多的外部资源，并使系统组件超越其所设定的能力范围,试图使系统挂掉.&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-JMeter 的安装非常简单,从官方网站上下载，解压之后即可使用。运行命令在%JMETER_HOME%/bin下,对于 Windows用户来说,命令是jmeter.bat。运行前请检查JMeter的文档,查看是否具备相关的运行条件:JDK的版本要求是否满足.&lt;h2 id=&quot;Test-Plan配置&quot;&gt;&lt;a href=&quot;#Test-Plan配置&quot; class=&quot;headerlink&quot; title=&quot;Test Plan配置&quot;&gt;&lt;/a&gt;Test Plan配置&lt;/h2&gt;&lt;img src=&quot;/img/jmeter-1.png&quot; alt=&quot;基本配置&quot;&gt;&lt;br&gt;进去之后，你会看到Test Plan和WorkBench。这两个块东西没有太多区别，不同的是Test Plan是测试的相关配置，workbench可以帮你创建一个代理服务器帮Test Plan录制测试脚本。&lt;h4 id=&quot;ThreadGroup-线程组&quot;&gt;&lt;a href=&quot;#ThreadGroup-线程组&quot; class=&quot;headerlink&quot; title=&quot;ThreadGroup 线程组&quot;&gt;&lt;/a&gt;ThreadGroup 线程组&lt;/h4&gt;一个线程组基本上是不同的测试计划元素的组合，它是一个测试计划的核心，它控制着基本核心参数。&lt;br&gt;为了创建一个测试计划，首先你不得不去创建一个线程组，配置如下参数:线程数量，过渡时期，循环次数和正常情况或者错误情况下的行为：&lt;h4 id=&quot;Samplers-采样器&quot;&gt;&lt;a href=&quot;#Samplers-采样器&quot; class=&quot;headerlink&quot; title=&quot;Samplers 采样器&quot;&gt;&lt;/a&gt;Samplers 采样器&lt;/h4&gt;采样器用于发送请求到不同类型的服务器。它们是每一个测试计划的基本要素，一切都围绕这些采样器而工作：采样器执行请求，这些请求产生一个或多个响应，后续将被分析。&lt;h4 id=&quot;Logic-Controllers-逻辑控制器&quot;&gt;&lt;a href=&quot;#Logic-Controllers-逻辑控制器&quot; class=&quot;headerlink&quot; title=&quot;Logic Controllers 逻辑控制器&quot;&gt;&lt;/a&gt;Logic Controllers 逻辑控制器&lt;/h4&gt;逻辑控制器允许你配置一个线程组内不同采样器的执行顺序。&lt;h4 id=&quot;Listeners-监听器&quot;&gt;&lt;a href=&quot;#Listeners-监听器&quot; class=&quot;headerlink&quot; title=&quot;Listeners 监听器&quot;&gt;&lt;/a&gt;Listeners 监听器&lt;/h4&gt;监听器提供不同的方式查看由采样器请求产生的结果。监听器以报表、树型结构、或简明的日志文件的形式分析结果。&lt;h4 id=&quot;Timers-定时器&quot;&gt;&lt;a href=&quot;#Timers-定时器&quot; class=&quot;headerlink&quot; title=&quot;Timers 定时器&quot;&gt;&lt;/a&gt;Timers 定时器&lt;/h4&gt;定时器来定义请求之间的等待时间。如果不指定，JMeter会一个请求完成后立即执行下一个请求，没有任何等待时间。&lt;h4 id=&quot;Assertions-断言&quot;&gt;&lt;a href=&quot;#Assertions-断言&quot; class=&quot;headerlink&quot; title=&quot;Assertions 断言&quot;&gt;&lt;/a&gt;Assertions 断言&lt;/h4&gt;断言通过验证采样器请求产生的响应，来验证测试计划的有效性。类似于单元测试断言，用来检测被测试应用程序的响应质量。&lt;h4 id=&quot;Configuration-nodes-配置节点&quot;&gt;&lt;a href=&quot;#Configuration-nodes-配置节点&quot; class=&quot;headerlink&quot; title=&quot;Configuration nodes 配置节点&quot;&gt;&lt;/a&gt;Configuration nodes 配置节点&lt;/h4&gt;配置节点可以将不同的参数传递给取样器请求。&lt;h4 id=&quot;Pre-processors-前置处理器&quot;&gt;&lt;a href=&quot;#Pre-processors-前置处理器&quot; class=&quot;headerlink&quot; title=&quot;Pre processors 前置处理器&quot;&gt;&lt;/a&gt;Pre processors 前置处理器&lt;/h4&gt;前置处理器在采样器执行前被触发的元素。&lt;h4 id=&quot;Post-processors-后置处理器&quot;&gt;&lt;a href=&quot;#Post-processors-后置处理器&quot; class=&quot;headerlink&quot; title=&quot;Post processors 后置处理器&quot;&gt;&lt;/a&gt;Post processors 后置处理器&lt;/h4&gt;后置处理器是取样器被执行后被触发执行的元素。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;WorkBench&quot;&gt;&lt;a href=&quot;#WorkBench&quot; class=&quot;headerlink&quot; title=&quot;WorkBench&quot;&gt;&lt;/a&gt;WorkBench&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/img/jmeter-2.png&quot; alt=&quot;非测试元素&quot;&gt;&lt;br&gt;WorkBench可以Add三个Non-test Elements:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Http Mirror Server 镜像的服务器&lt;br&gt;其实就是一个代理服务器,它把所有接收到的请求原封不动地返回，这样就可以看到发出请求和响应的具体内容了。&lt;/li&gt;
-&lt;li&gt;Http(s) Test Script Recorder 脚本录制器&lt;br&gt;也是一个代理服务器,它会把所有接受的请求全部记录到Test Plan配置中,你在测试中可以使用这些录制的脚本。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;测试计划元素执行顺序&quot;&gt;&lt;a href=&quot;#测试计划元素执行顺序&quot; class=&quot;headerlink&quot; title=&quot;测试计划元素执行顺序&quot;&gt;&lt;/a&gt;测试计划元素执行顺序&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;配置节点&lt;/li&gt;
-&lt;li&gt;前置处理器&lt;/li&gt;
-&lt;li&gt;定时器&lt;/li&gt;
-&lt;li&gt;取样器&lt;/li&gt;
-&lt;li&gt;后置处理器（只在有结果可用情况下执行）&lt;/li&gt;
-&lt;li&gt;断言（只在有结果可用情况下执行）&lt;/li&gt;
-&lt;li&gt;监听器（只在有结果可用情况下执行）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;性能指标&quot;&gt;&lt;a href=&quot;#性能指标&quot; class=&quot;headerlink&quot; title=&quot;性能指标&quot;&gt;&lt;/a&gt;性能指标&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;Label:定义的HTTP请求名称&lt;/li&gt;
-&lt;li&gt;Samples:表示这次测试中一共发出了多少个请求&lt;/li&gt;
-&lt;li&gt;Average:访问页面的平均响应时间 &lt;/li&gt;
-&lt;li&gt;Min:访问页面的最小响应时间&lt;/li&gt;
-&lt;li&gt;Max:访问页面的最大响应时间&lt;/li&gt;
-&lt;li&gt;Error%:错误的请求的数量/请求的总数&lt;/li&gt;
-&lt;li&gt;Throughpu:每秒完成的请求数&lt;/li&gt;
-&lt;li&gt;KB/Sec:每秒从服务器端接收到的数据量&lt;/li&gt;
-&lt;li&gt;Median:50％的用户响应时间&lt;/li&gt;
-&lt;li&gt;90%Line:90％的用户响应时间&lt;/li&gt;
-&lt;li&gt;95%Line:95％的用户响应时间&lt;/li&gt;
-&lt;li&gt;99%Line:99％的用户响应时间&lt;br&gt;时间指标的单位都是毫秒。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;第一个web性能测试&quot;&gt;&lt;a href=&quot;#第一个web性能测试&quot; class=&quot;headerlink&quot; title=&quot;第一个web性能测试&quot;&gt;&lt;/a&gt;第一个web性能测试&lt;/h2&gt;&lt;p&gt;我做了一个博客网站首页的性能测试，只设置ThreadGroup,Sampler,Listener三项就可以运行。&lt;/p&gt;
-&lt;h4 id=&quot;ThreadGroup设置&quot;&gt;&lt;a href=&quot;#ThreadGroup设置&quot; class=&quot;headerlink&quot; title=&quot;ThreadGroup设置&quot;&gt;&lt;/a&gt;ThreadGroup设置&lt;/h4&gt;&lt;p&gt;一个性能测试请求负载是基于一个线程组完成的，jmeter中每个测试计划至少需要包含一个线程组。Test Plan右键菜单可新增ThreadGroup(add-&amp;gt;Threads-&amp;gt;ThreadGroup);&lt;br&gt;&lt;img src=&quot;/img/jmeter-3.png&quot; alt=&quot;ThreadGroup&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Number of Threads 线程数:虚拟用户数.一个虚拟用户占用一个进程或线程。&lt;/li&gt;
-&lt;li&gt;Ramp-up Period 准备时长:设置的虚拟用户数需要多长时间全部启动。&lt;/li&gt;
-&lt;li&gt;Loop Count 循环次数：每个线程发送请求的次数。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;Sample设置&quot;&gt;&lt;a href=&quot;#Sample设置&quot; class=&quot;headerlink&quot; title=&quot;Sample设置&quot;&gt;&lt;/a&gt;Sample设置&lt;/h4&gt;&lt;p&gt;在ThreadGroup上右键菜单可新增HttpRequest（add-&amp;gt;Sampler-&amp;gt;HttpRequest).Sampler是与服务器进行交互的单元.一个Sampler通常进行三部分的工作：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;向服务器发送请求&lt;/li&gt;
-&lt;li&gt;记录服务器的响应数据&lt;/li&gt;
-&lt;li&gt;记录相应时间信息&lt;br&gt;&lt;img src=&quot;/img/jmeter-4.png&quot; alt=&quot;HttpRequest&quot;&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;Listener设置&quot;&gt;&lt;a href=&quot;#Listener设置&quot; class=&quot;headerlink&quot; title=&quot;Listener设置&quot;&gt;&lt;/a&gt;Listener设置&lt;/h4&gt;&lt;p&gt;脚本的主要部分设置完成后,需要通过某种方式获得性能测试中的测试结果。ThreadGroup上右键菜单可新增Listner（add-&amp;gt;Listener-&amp;gt;Aggregate Report).&lt;br&gt;&lt;img src=&quot;/img/jmeter-5.png&quot; alt=&quot;HttpRequest&quot;&gt;&lt;br&gt;我最关心的是我的博客响应时间，数据显示客户的平均响应时间为:337毫秒,99%的用户在1985毫秒内完成，也就不超2秒。最少用户响应时间为149毫秒，最大用户响应时间为5020毫秒&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近做性能优化工作，同时要给自己的工作给一个总结。需要自己弄性能测试及编写性能测试报告。在别人推荐下使用JMeter对项目进行性能测试。JMeter可以进行配置和执行负载测试、性能测试和压力测试的工具。了解一下几个概念:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;负载测试: 这类测试使系统或者应用程序在预先设计好的极端场景下测试运行。这类测试用来评估系统或者程序在极端条件下的行为。&lt;/li&gt;
-&lt;li&gt;性能测试: 这种测试被用来检测系统的性能表现，包括特定情况下，系统的响应能力和稳定性。&lt;/li&gt;
-&lt;li&gt;压力测试: 这类测试通过载入更多的外部资源，并使系统组件超越其所设定的能力范围,试图使系统挂掉.
     
     </summary>
     
