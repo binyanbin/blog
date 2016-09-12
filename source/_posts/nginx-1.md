@@ -72,6 +72,7 @@ proxy_buffer_size 缓存大小
 
 针对主机
 error_log
+log_format 访问日志格式内容定义
 access_log
 
 查看监听:

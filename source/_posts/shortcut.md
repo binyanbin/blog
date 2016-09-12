@@ -121,8 +121,7 @@ hexo clean
 hexo g
 cp -r ~/Documents/git/blog/public/ ~/Documents/git/binyanbin.github.io/
 cd ~/Documents/git/binaynbin.github.io/
-git add .
-git commit -m 'submit'
+git commit -a -m 'submit'
 git push
 ```
 
